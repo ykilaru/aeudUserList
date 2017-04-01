@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="script.js"></script>
+      <link rel="stylesheet" href="style.css">
+      <title>Evolent Directory</title>
+   </head>
+   <body ng-app="myapp" ng-controller="UserManagementController">
+      <div class="container">
+         <div class="row">
+            <form class="form-horizontal" name="myForm" novalidate="">
+               <div class="form-group">
+                  <label for="firstName" class="col-sm-2 control-label">First Name</label>
+                  <div class="col-sm-4">
+                     <input type="text" class="form-control"  name="firstname"  placeholder="First Name" ng-model="user.fname" required>
+                     <span style="color:red" ng-show="myForm.firstname.$invalid && myForm.firstname.$dirty">
+                     <span ng-show="myForm.firstname.$error.required && myForm.firstname.$dirty">First name is required.</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+                  <div class="col-sm-4">
+                     <input type="text" class="form-control" name="lastname" placeholder="Last Name" ng-model="user.lname" required>
+                     <span style="color:red" ng-show="myForm.lastname.$invalid && myForm.lastname.$dirty">
+                     <span ng-show="myForm.lastname.$error.required && myForm.lastname.$dirty">Last name is required.</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="email" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-4">
+                     <input type="email" class="form-control" name="email" placeholder="Email" ng-change="verifyDedupeEmail()" ng-model="user.email" required>
+                     <span style="color:red" ng-show="myForm.email.$invalid || isDedupeEmail">
+                     <span ng-show="myForm.email.$error.required && myForm.email.$dirty">Email is required.</span>
+                     <span ng-show="isDedupeEmail">Enter Uinque Email</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="phone" class="col-sm-2 control-label">Contact</label>
+                  <div class="col-sm-4">
+                     <input type="text" class="form-control" name="phone" placeholder="(999)999-9999" ng-pattern="phoneNumber" ng-model=" user.phone " required>
+                     <span style="color:red" ng-show="myForm.phone.$invalid && myForm.phone.$dirty">
+                     <span ng-show="myForm.phone.$error.required && myForm.phone.$dirty">Phone is required</span>
+                     <span class="error" ng-show="myForm.phone.$error.minlength && myForm.phone.$dirty">Phone number should be a min of 10 digits</span>
+                     <span class="error" ng-show="myForm.phone.$error.maxlength && myForm.phone.$dirty">Phone no not more than 11 char.</span>
+                     <br><span class="error" ng-show="myForm.phone.$error.pattern && myForm.phone.$dirty">Please match pattern [123-456-7890 || 1234567890]</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="col-sm-offset-2 col-sm-6">
+                  <label for="ch1">Active</label>
+                  <input type="radio" name="status"id="ch1" value="active">&nbsp;
+                  <label for="ch2">Inactive</label>
+                  <input type="radio" name="status" id="ch2" value="inactive">
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-4">
+                     <button type="button" ng-click="addNew()" ng-show="!isEdit" class="btn btn-primary" ng-disabled="myForm.$invalid || isDedupeEmail">Add User </button>
+                     <button type="button" ng-click="update()" ng-show="isEdit" class="btn btn-primary" ng-disabled="myForm.$invalid || isDedupeEmail"> Update User </button>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <button type="submit" class="btn btn-warning" ng-show="showEdit" ng-click="edit()">Edit</button>
+               <button type="submit" class="btn btn-danger pull-right" ng-if="showDelete" ng-click="delete()">Delete</button>
+            </div>
+         </div>
+         <div class="row">
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th><input type="checkbox" ng-model="selectedAll" ng-click="checkAll()"/></th>
+                     <th>First Name</th>
+                     <th>Last Name</th>
+                     <th>Email</th>
+                     <th>Contact</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat = "data in UserList" >
+                     <td><input type="checkbox" ng-model="data.selected" ng-change="check()" /></td>
+                     <td>{{data.fname}}</td>
+                     <td>{{data.lname}}</td>
+                     <td>{{data.email}}</td>
+                     <td>{{data.phone}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>

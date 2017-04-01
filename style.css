@@ -1,0 +1,12 @@
+/*
+* @Author: Kilaru
+* @Date:   04-01-2017
+* @Last Modified by: Kilaru
+*/
+
+.container{
+	margin-top: 20px;
+}
+.table td,th{
+   text-align: center;
+}
