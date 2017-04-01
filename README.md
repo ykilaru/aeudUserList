@@ -7,7 +7,7 @@ Single page application(aeudUserList) which allows customer to (a)dd new users, 
 
 Features:
 ---------
--Add data to clean and easily accesible table.
+-Add data to clean and easily accesible table.  
 -Edit data.
 -Update data.
 -Delete data.
