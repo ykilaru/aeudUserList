@@ -16,7 +16,7 @@ Features:
 Installation:
 ------------
 
- As this is just demo on how to "aeud" data to a table using angular no data is being stored yet, I might update in future.   
+ As this is just demo on how to "aeud" data to a table using angular no data is being stored yet, I might update it in future.    
  No server needed as of 04-01-2017.  
  Run offline on any browser.
 
